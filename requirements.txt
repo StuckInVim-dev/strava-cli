@@ -1,1 +1,2 @@
 urwid
+python-dotenv

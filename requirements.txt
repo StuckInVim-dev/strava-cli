@@ -1,2 +1,3 @@
 urwid
 python-dotenv
+requests

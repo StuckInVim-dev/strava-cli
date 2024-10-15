@@ -1,4 +1,7 @@
+import datetime
 meal_id = 0
+DAYS_OF_THE_WEEK = ["Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"]
+
 def main(API_RESPONSE):
 
     def increment_id(step=1):
@@ -21,7 +24,8 @@ def main(API_RESPONSE):
 
         date = day[0]["datum"]
 
-
+        date_array = date.split(".")
+        week_of_the_day_index = datetime.date(int(date_array[2]), int(date_array[1]), int(date_array[0])).weekday()
 
         if order_limitation == "VP":
             meal_form["questions"].append({
@@ -44,10 +48,10 @@ def main(API_RESPONSE):
 
 
         if selected_meal is not None:
-  
+
             meal_form["questions"].append({
                 "id": date,
-                "question": f"{date}\n    Povévka: {day[0]['delsiPopis']}",
+                "question": f"{DAYS_OF_THE_WEEK[week_of_the_day_index]} {date}\n    Povévka: {day[0]['delsiPopis']}",
                 "locked": bool(order_limitation),
                 "default": selected_meal,
                 "options": [{
@@ -63,7 +67,7 @@ def main(API_RESPONSE):
   
             meal_form["questions"].append({
                 "id": date,
-                "question": f"{date}\n    Povévka: {day[0]['delsiPopis']}",
+                "question": f"{DAYS_OF_THE_WEEK[week_of_the_day_index]} {date}\n    Povévka: {day[0]['delsiPopis']}",
                 "locked": bool(order_limitation),
                 # "default": selected_meal, dont pass in since its none
                 "options": [{
